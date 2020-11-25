@@ -4,6 +4,10 @@
 //
 //  Created by William Hause on 11/22/20.
 //
+//  Memorize the 49 Processes in the 5 "Process Groups" and 9 "Knowledge Areas" in PMBOK 6th Edition
+//    https://www.examspm.com/2018/08/07/memorize-the-49-processes-pmbok-6th-edition/
+//    Key Words: PMP,Exam,PMI,PMBOK,Process,Groups,Group,Knowledge,Areas,Matrix,Project,Management,Study,Practice
+//
 // Tutorial to create this PizzaRestaurant Core Data Demo:
 //    https://blckbirds.com/post/core-data-and-swiftui/
 //
