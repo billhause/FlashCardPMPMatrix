@@ -50,6 +50,10 @@ struct FlashCardPMPMatrixApp: App {
     // Called when the scene becomes active (like on startup and when moving out of the background
     func scenePhaseActive(previousScenePhase: ScenePhase) {
         print("wdh scenePhaseActive() Called, previous ScenePhase was \(previousScenePhase)")
+        
+        // Initialize the FlashCard Matrix
+        FlashCardViewModel.initializeTheMatrix(context: persistenceController.container.viewContext)
+        
     }
     
     // wdh added

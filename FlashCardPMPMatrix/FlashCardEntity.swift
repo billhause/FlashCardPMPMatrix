@@ -18,7 +18,7 @@ extension FlashCardEntity {
         // If found, return it
         // If not found, create one and return it.
         let request = NSFetchRequest<FlashCardEntity>(entityName: "FlashCardEntity")
-        request.predicate = NSPredicate(format: "row = %@ and column = %@", row, column)
+        request.predicate = NSPredicate(format: "row = %@ AND column = %@", NSNumber(value: row), NSNumber(value: column))
         
         // Objects are returned in an array - Returns an empty array if no FlashCardEntities with the row,column are found
         let flashCardEntities = (try? context.fetch(request))
@@ -36,6 +36,10 @@ extension FlashCardEntity {
             flashCardEntity.text = "" // Initialize to empty string
             flashCardEntity.isHidden = true
             print("created FlashCardEntity for row: \(row), column: \(column)")
+            
+            // Save the created FlashCardEntity
+            try? context.save() // Not handling the try/catch because there's nothing I would be able to do about it.
+            
             return flashCardEntity
         }
     }
