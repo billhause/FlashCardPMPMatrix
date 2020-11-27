@@ -26,6 +26,7 @@ extension FlashCardEntity {
         // If we found one, return it.  IF the returned array is empty then we need to create one.
         if let flashCardEntity = flashCardEntities!.first {
             // if found, return it
+            print("Found Existing FlashCardEntity for row: \(row), column: \(column)")
             return flashCardEntity
         } else {
             // If no flashCardEntity was found, create one
@@ -34,6 +35,7 @@ extension FlashCardEntity {
             flashCardEntity.column = column
             flashCardEntity.text = "" // Initialize to empty string
             flashCardEntity.isHidden = true
+            print("created FlashCardEntity for row: \(row), column: \(column)")
             return flashCardEntity
         }
     }

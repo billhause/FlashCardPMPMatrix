@@ -74,6 +74,11 @@
 //       b. Add function: viewWillLayoutSubviews() - this is a better place to initialize the game scene because we don't know the screen size in viewDidLoad but do know it in viewWillLayoutSubviews
 //       c.
 //
+// Stanford Lecture 1: SwiftUI - Concentration Game
+//   - https://www.youtube.com/watch?v=jbtqIBpUG7g&t=3s
+//
+//
+//
 //  Core Data Tutorial: https://www.youtube.com/watch?v=O7u9nYWjvKk
 //    - Create element, Load, Save and Delete ends at minute 49
 //    - Filtering and Sorting starting at minute 51
