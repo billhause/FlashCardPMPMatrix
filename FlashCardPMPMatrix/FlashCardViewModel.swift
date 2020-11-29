@@ -24,10 +24,10 @@ class FlashCardViewModel {
         print("LOADING FlashCardEntities...")
         for currentRow in 0..<rowCount {
             for currentColumn in 0..<columnCount {
-                let theFlashCardEntity = FlashCardEntity.withRowColumn(row: currentRow, column: currentColumn, context: context)
+                let theFlashCardEntity = FlashCardEntity.withRowColumn(row: Int16(currentRow), column: Int16(currentColumn), context: context)
                 let cardText = theFlashCardEntity.text ?? ""
                 print("theFlashCardEntity.text = \(cardText)")
-//                theFlashCardEntity.text = "Just a test"
+//                theFlashCardEntity.text = "row: \(currentRow)\ncol: \(currentColumn)"
             }
         }
         try? context.save()
@@ -37,8 +37,8 @@ class FlashCardViewModel {
     // MARK: - Constants
     
     // The PMI Matrix 6th edition has 6 columns and 11 rows (includeing header column and row)
-    static let rowCount: Int16 = 11
-    static let columnCount: Int16 = 6
+    static let rowCount: Int = 11
+    static let columnCount: Int = 6
     
 
 }
