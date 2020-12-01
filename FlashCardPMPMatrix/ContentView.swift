@@ -113,8 +113,12 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
-//    private var flashCardEntities: FetchedResults<FlashCardEntity>
+
+    // wdh NOT REFRESHING TEXT FOR SOME REASON when FlashCardEntity updates
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+    private var flashCardEntities: FetchedResults<FlashCardEntity>
+
+    
     
     var body: some View {
         MatrixView()
@@ -126,6 +130,10 @@ struct ContentView: View {
 
 struct MatrixView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    // wdh NOT REFRESHING TEXT FOR SOME REASON when FlashCardEntity updates
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+    private var flashCardEntities: FetchedResults<FlashCardEntity>
     
     var body: some View {
         VStack {
@@ -175,8 +183,15 @@ struct MatrixView: View {
     
     func cardTapHandler(row: Int16, col: Int16) {
         print("Card Tapped! row: \(row), col: \(col)")
-        FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext).text = "Updated with Touch"
         
+        let flashCardEntity = FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext)
+        flashCardEntity.text = "Uupdated With Touch"
+        flashCardEntity.objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
+        
+        /*
+        FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext).text = "Updated with Touch"
+        FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext).objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
+        */
 //        watch Stanford video to figure out how to make cards update when the Entity value changes.
         
         try? viewContext.save()
@@ -193,6 +208,12 @@ struct MatrixView: View {
 
 struct CardView: View {
     @Environment(\.managedObjectContext) private var viewContext
+
+    // wdh NOT REFRESHING TEXT FOR SOME REASON when FlashCardEntity updates
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+    private var flashCardEntities: FetchedResults<FlashCardEntity>
+    
+
     let row: Int16
     let column: Int16
     let fillColor: Color // use Color.init(red: 0.9, green: 0.9, blue: 1.0)

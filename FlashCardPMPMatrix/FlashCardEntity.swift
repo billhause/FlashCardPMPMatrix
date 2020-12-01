@@ -9,7 +9,17 @@ import CoreData
 
 
 // FlashCardEntity is like a little "View-Mode" in MVVM
-extension FlashCardEntity {
+// Class - This is a class, not a struct
+//
+// NOTE: Entities are made 'Identifiable' when XCode creates the class - it puts on a stub.  Adding Comparable allows them to be used in dictionaries and sets etc.
+extension FlashCardEntity: Comparable {
+    public static func < (lhs: FlashCardEntity, rhs: FlashCardEntity) -> Bool {
+        if lhs.row != rhs.row {
+            return lhs.row < rhs.row
+        } else {
+            return lhs.column < rhs.column
+        }
+    }
 
     // If the requested item doesn't exist, then create one and return it.
     static func withRowColumn(row: Int16, column: Int16, context: NSManagedObjectContext) -> FlashCardEntity {
@@ -21,8 +31,7 @@ extension FlashCardEntity {
         request.predicate = NSPredicate(format: "row = %@ AND column = %@", NSNumber(value: row), NSNumber(value: column))
         
         // sortDescriptors line May not be needed!
-        request.sortDescriptors = [NSSortDescriptor(key: "row", ascending: true)]
-//        request.sortDescriptors = [[NSSortDescriptor(key: "row", ascending: true)], [NSSortDescriptor(key: "column", ascending: true)]]
+        request.sortDescriptors = [NSSortDescriptor(key: "row", ascending: true), NSSortDescriptor(key: "column", ascending: true)]
         
         // Objects are returned in an array - Returns an empty array if no FlashCardEntities with the row,column are found
         let flashCardEntities = try? context.fetch(request)
@@ -39,6 +48,9 @@ extension FlashCardEntity {
             flashCardEntity.column = column
             flashCardEntity.text = "" // Initialize to empty string
             flashCardEntity.isHidden = true
+            
+            flashCardEntity.objectWillChange.send() // Needed? Cause any views looking at this Entity to redraw themselves
+            
             print("created FlashCardEntity for row: \(row), column: \(column)")
             
             // Save the created FlashCardEntity
