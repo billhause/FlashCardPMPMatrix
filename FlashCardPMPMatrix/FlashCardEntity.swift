@@ -48,6 +48,7 @@ extension FlashCardEntity: Comparable {
             flashCardEntity.column = column
             flashCardEntity.text = "" // Initialize to empty string
             flashCardEntity.isHidden = true
+            flashCardEntity.id = UUID()
             
             flashCardEntity.objectWillChange.send() // Needed? Cause any views looking at this Entity to redraw themselves
             

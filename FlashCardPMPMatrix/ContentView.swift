@@ -114,12 +114,17 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    // vvvvvv From Stanford Core Data Lesson 12
     // wdh NOT REFRESHING TEXT FOR SOME REASON when FlashCardEntity updates
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
-    private var flashCardEntities: FetchedResults<FlashCardEntity>
+    // @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+    // var flashCardEntities: FetchedResults<FlashCardEntity>
+    // ^^^^^^^ From Stanford Core Data Lesson 12
 
-    
-    
+    // vvvvvvv From Pizza Restaurant Example https://blckbirds.com/post/core-data-and-swiftui/
+    @FetchRequest(entity: FlashCardEntity.entity(), sortDescriptors: [])
+    var flashCardEntities: FetchedResults<FlashCardEntity>
+    // ^^^^^^^  From Pizza Restaurant Example
+
     var body: some View {
         MatrixView()
     }
@@ -131,10 +136,18 @@ struct ContentView: View {
 struct MatrixView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    // vvvvvv From Stanford Core Data Lesson 12
     // wdh NOT REFRESHING TEXT FOR SOME REASON when FlashCardEntity updates
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
-    private var flashCardEntities: FetchedResults<FlashCardEntity>
-    
+    // @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+    // var flashCardEntities: FetchedResults<FlashCardEntity>
+    // ^^^^^^^ From Stanford Core Data Lesson 12
+
+    // vvvvvvv From Pizza Restaurant Example https://blckbirds.com/post/core-data-and-swiftui/
+    @FetchRequest(entity: FlashCardEntity.entity(), sortDescriptors: [])
+    var flashCardEntities: FetchedResults<FlashCardEntity>
+    // ^^^^^^^  From Pizza Restaurant Example
+
+
     var body: some View {
         VStack {
             ForEach(0..<FlashCardViewModel.rowCount) { theRow in
@@ -185,7 +198,7 @@ struct MatrixView: View {
         print("Card Tapped! row: \(row), col: \(col)")
         
         let flashCardEntity = FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext)
-        flashCardEntity.text = "Uupdated With Touch"
+        flashCardEntity.text = "Updated With Touch 🐒"
         flashCardEntity.objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
         
         /*
@@ -209,10 +222,17 @@ struct MatrixView: View {
 struct CardView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    // vvvvvv From Stanford Core Data Lesson 12
     // wdh NOT REFRESHING TEXT FOR SOME REASON when FlashCardEntity updates
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
-    private var flashCardEntities: FetchedResults<FlashCardEntity>
-    
+    // @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+    // var flashCardEntities: FetchedResults<FlashCardEntity>
+    // ^^^^^^^ From Stanford Core Data Lesson 12
+
+    // vvvvvvv From Pizza Restaurant Example https://blckbirds.com/post/core-data-and-swiftui/
+    @FetchRequest(entity: FlashCardEntity.entity(), sortDescriptors: [])
+    var flashCardEntities: FetchedResults<FlashCardEntity>
+    // ^^^^^^^  From Pizza Restaurant Example
+
 
     let row: Int16
     let column: Int16
@@ -223,7 +243,10 @@ struct CardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
             RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
-            Text("\(FlashCardEntity.withRowColumn(row: row, column: column, context: viewContext).text!)") // could put .text ?? "" to default if nil
+            Text("\(flashCardEntities.first!.text!)") // could put .text ?? "" to default if nil
+            
+            Figure out why clickong on row 8 coluimn 5 updats everythign - need to make Array find the element at a row,column and use it's text to set the card text.
+//            Text("\(FlashCardEntity.withRowColumn(row: row, column: column, context: viewContext).text!)") // could put .text ?? "" to default if nil
         }
     
     }
