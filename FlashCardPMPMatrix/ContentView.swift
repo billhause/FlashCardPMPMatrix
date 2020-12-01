@@ -113,14 +113,19 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardEntity.text, ascending: true)], animation: .default)
+//    private var flashCardEntities: FetchedResults<FlashCardEntity>
+    
     var body: some View {
         MatrixView()
     }
         
 }
 
+
+
 struct MatrixView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     
     var body: some View {
         VStack {
@@ -137,25 +142,27 @@ struct MatrixView: View {
                 Group {
                     if (colNumber == 0) && (rowNumber == 0) { // ORIGIN CELL
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor) .onTapGesture {
-                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
+//                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
                         }
                     }
                     
                     else if (colNumber == 0) && (rowNumber != 0) { // ROW HEADERS (First Column)
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: rowHeaderColor) .onTapGesture {
-                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
                         }
                     }
                     
                     else if (colNumber != 0) && (rowNumber == 0) { // COLUMN HEADERS (First Row)
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: columnHeaderColor) .onTapGesture {
-                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
                         }
                     }
 
                     else if (colNumber != 0) && (rowNumber != 0) { // BODY CELLS
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: tableCellColor) .onTapGesture {
-                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
+//                            print("count = \(count)")
                         }
                     }
                 }
@@ -165,6 +172,16 @@ struct MatrixView: View {
 //        .foregroundColor(Color.blue)
         .font(Font.system(size: 10.0))
     }
+    
+    func cardTapHandler(row: Int16, col: Int16) {
+        print("Card Tapped! row: \(row), col: \(col)")
+        FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext).text = "Updated with Touch"
+        
+//        watch Stanford video to figure out how to make cards update when the Entity value changes.
+        
+        try? viewContext.save()
+    }
+
     
     // MARK: - Constants
     let columnHeaderColor: Color = Color.init(red: 0.7, green: 0.9, blue: 1.0)
@@ -185,7 +202,7 @@ struct CardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
             RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
-            Text("\(FlashCardEntity.withRowColumn(row: row, column: column, context: viewContext).text ?? "")")
+            Text("\(FlashCardEntity.withRowColumn(row: row, column: column, context: viewContext).text!)") // could put .text ?? "" to default if nil
         }
     
     }

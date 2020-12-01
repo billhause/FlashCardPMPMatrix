@@ -20,8 +20,12 @@ extension FlashCardEntity {
         let request = NSFetchRequest<FlashCardEntity>(entityName: "FlashCardEntity")
         request.predicate = NSPredicate(format: "row = %@ AND column = %@", NSNumber(value: row), NSNumber(value: column))
         
+        // sortDescriptors line May not be needed!
+        request.sortDescriptors = [NSSortDescriptor(key: "row", ascending: true)]
+//        request.sortDescriptors = [[NSSortDescriptor(key: "row", ascending: true)], [NSSortDescriptor(key: "column", ascending: true)]]
+        
         // Objects are returned in an array - Returns an empty array if no FlashCardEntities with the row,column are found
-        let flashCardEntities = (try? context.fetch(request))
+        let flashCardEntities = try? context.fetch(request)
         
         // If we found one, return it.  IF the returned array is empty then we need to create one.
         if let flashCardEntity = flashCardEntities!.first {
