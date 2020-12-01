@@ -114,17 +114,13 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    func hStackRow(rowNumber: Int16) -> some View {
-        HStack {
-            ForEach(0..<FlashCardViewModel.columnCount) { theCol in
-                ZStack {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
-                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth:1)
-                Text("\(FlashCardEntity.withRowColumn(row: rowNumber, column: Int16(theCol), context: viewContext).text ?? "")")
-                }
-            }
-        }
+    var body: some View {
+        MatrixView()
     }
+        
+}
+
+struct MatrixView: View {
     
     var body: some View {
         VStack {
@@ -134,6 +130,65 @@ struct ContentView: View {
         }
     }
 
+    // Create row of cards for the specified row number
+    func hStackRow(rowNumber: Int16) -> some View {
+        HStack {
+            ForEach(0..<FlashCardViewModel.columnCount) { colNumber in
+                Group {
+                    if (colNumber == 0) && (rowNumber == 0) { // ORIGIN CELL
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor) .onTapGesture {
+                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                        }
+                    }
+                    
+                    else if (colNumber == 0) && (rowNumber != 0) { // ROW HEADERS (First Column)
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: rowHeaderColor) .onTapGesture {
+                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                        }
+                    }
+                    
+                    else if (colNumber != 0) && (rowNumber == 0) { // COLUMN HEADERS (First Row)
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: columnHeaderColor) .onTapGesture {
+                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                        }
+                    }
+
+                    else if (colNumber != 0) && (rowNumber != 0) { // BODY CELLS
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: tableCellColor) .onTapGesture {
+                            print("Card Tapped row: \(rowNumber), column: \(colNumber)")
+                        }
+                    }
+                }
+            }
+        }
+        .padding(2)
+//        .foregroundColor(Color.blue)
+        .font(Font.system(size: 10.0))
+    }
+    
+    // MARK: - Constants
+    let columnHeaderColor: Color = Color.init(red: 0.7, green: 0.9, blue: 1.0)
+    let rowHeaderColor:    Color = Color.init(red: 0.9, green: 1.0, blue: 0.9)
+    let originCellColor:   Color = Color.init(red: 1.0, green: 1.0, blue: 1.0)
+    let tableCellColor:    Color = Color.init(red: 0.9, green: 0.9, blue: 0.9)
+
+}
+
+struct CardView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    let row: Int16
+    let column: Int16
+    let fillColor: Color // use Color.init(red: 0.9, green: 0.9, blue: 1.0)
+    
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
+            RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
+            Text("\(FlashCardEntity.withRowColumn(row: row, column: column, context: viewContext).text ?? "")")
+        }
+    
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
