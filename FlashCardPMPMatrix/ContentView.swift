@@ -173,7 +173,11 @@ struct MatrixView: View {
         print("Card Tapped! row: \(row), col: \(col)")
         
         let flashCardEntity = FlashCardEntity.withRowColumn(row: row, column: col, context: viewContext)
-        flashCardEntity.text = "🎅 Santa row: \(row), col: \(col)"
+        
+        // Flip card
+        flashCardEntity.isHidden = !flashCardEntity.isHidden
+        
+        flashCardEntity.text = "🎅 Santa row: \(row), col: \(col), isHidden = \(flashCardEntity.isHidden)"
 //        flashCardEntity.objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
         
         try? viewContext.save()
