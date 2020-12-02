@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		280781212577150B004919F9 /* Array+FlashCardIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280781202577150B004919F9 /* Array+FlashCardIndex.swift */; };
 		28923B41256F04E000842161 /* FlashCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28923B40256F04E000842161 /* FlashCardEntity.swift */; };
 		28923B44256F10DA00842161 /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28923B43256F10DA00842161 /* FlashCardViewModel.swift */; };
 		28E65839256AC08F009BAB66 /* FlashCardPMPMatrixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E65838256AC08F009BAB66 /* FlashCardPMPMatrixApp.swift */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		280781202577150B004919F9 /* Array+FlashCardIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FlashCardIndex.swift"; sourceTree = "<group>"; };
 		28923B40256F04E000842161 /* FlashCardEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardEntity.swift; sourceTree = "<group>"; };
 		28923B43256F10DA00842161 /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
 		28E65835256AC08E009BAB66 /* FlashCardPMPMatrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCardPMPMatrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +62,6 @@
 			children = (
 				28E65838256AC08F009BAB66 /* FlashCardPMPMatrixApp.swift */,
 				28E6583A256AC08F009BAB66 /* ContentView.swift */,
-				280781202577150B004919F9 /* Array+FlashCardIndex.swift */,
 				28E6583C256AC08F009BAB66 /* Assets.xcassets */,
 				28E65841256AC08F009BAB66 /* Persistence.swift */,
 				28E65846256AC08F009BAB66 /* Info.plist */,
@@ -156,7 +153,6 @@
 				28923B41256F04E000842161 /* FlashCardEntity.swift in Sources */,
 				28E65842256AC08F009BAB66 /* Persistence.swift in Sources */,
 				28E65845256AC08F009BAB66 /* FlashCardPMPMatrix.xcdatamodeld in Sources */,
-				280781212577150B004919F9 /* Array+FlashCardIndex.swift in Sources */,
 				28E6583B256AC08F009BAB66 /* ContentView.swift in Sources */,
 				28E65839256AC08F009BAB66 /* FlashCardPMPMatrixApp.swift in Sources */,
 				28923B44256F10DA00842161 /* FlashCardViewModel.swift in Sources */,
