@@ -142,6 +142,9 @@ struct MatrixView: View {
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor) .onTapGesture {
                             cardTapHandler(row: rowNumber, col: Int16(colNumber))
                         }
+//                        .onTapGesture(2) {
+//                            print("Double Tap")
+//                        }
                     }
                     
                     else if (colNumber == 0) && (rowNumber != 0) { // ROW HEADERS (First Column)
@@ -164,7 +167,7 @@ struct MatrixView: View {
                 }
             }
         }
-        .padding(2)
+//        .padding(2)
         .font(Font.system(size: 10.0))
     }
     
@@ -177,7 +180,7 @@ struct MatrixView: View {
         // Flip card
         flashCardEntity.isHidden = !flashCardEntity.isHidden
         
-        flashCardEntity.text = "🎅 Santa row: \(row), col: \(col), isHidden = \(flashCardEntity.isHidden)"
+        flashCardEntity.text = "☃️ \nrow: \(row), col: \(col) \nRow2\nrow3\nRow4\nrow5"
 
 //        flashCardEntity.objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
         
@@ -216,24 +219,20 @@ struct CardView: View {
     return ForEach(flashCardEntities, id: \.self) { flashCardEntity in
             if (flashCardEntity.row == row) && (flashCardEntity.column == column) {
                 if (!flashCardEntity.isHidden) {
-                    GeometryReader {g in
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
-                            RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
-                            Text("\(flashCardEntities[Int(column + row*Int16(FlashCardViewModel.columnCount))].text!)")
-                                .padding(2)
-                                .font(.system(size: 12)) // Maximum font size to use
-                                        .minimumScaleFactor(0.01) // Minimum size to reduce to fit view
-//                                .scaledToFit()
-//                                .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.2: g.size.height * 0.2))
-//                            .font(Font.system(size: 9.0)).padding(2)
-                        }
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
+                        RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
+                        Text("\(flashCardEntities[Int(column + row*Int16(FlashCardViewModel.columnCount))].text!)")
+                            .padding(2)
+                            .font(.system(size: 12)) // Maximum font size to use
+                            .minimumScaleFactor(0.01) // Minimum size to reduce to fit view
                     }.transition(.scale)
-                    //.transition(.scale(scale:3.0)).animation(.default)
+
                 } else {
                     ZStack {
                         RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
                         RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
+                        Text("?").font(.system(size:50)).minimumScaleFactor(0.01)
                     } .transition(.scale)
                 }
             }
