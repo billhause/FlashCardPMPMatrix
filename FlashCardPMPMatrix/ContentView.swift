@@ -178,6 +178,7 @@ struct MatrixView: View {
         flashCardEntity.isHidden = !flashCardEntity.isHidden
         
         flashCardEntity.text = "🎅 Santa row: \(row), col: \(col), isHidden = \(flashCardEntity.isHidden)"
+
 //        flashCardEntity.objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
         
         try? viewContext.save()
@@ -206,17 +207,36 @@ struct CardView: View {
     let fillColor: Color // use Color.init(red: 0.9, green: 0.9, blue: 1.0)
     
     
+    // NOTE: This view relies on the FlashCardEntities being sorted by row
+    // and column to update the correct cell
     var body: some View {
 
-    // NOTE: This relies on the FlashCardEntities being sorted by row and column to update the correct cell
-    ForEach(flashCardEntities, id: \.self) { flashCardEntity in
+    print("Hello Dude - CardView body")
+        
+    return ForEach(flashCardEntities, id: \.self) { flashCardEntity in
             if (flashCardEntity.row == row) && (flashCardEntity.column == column) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
-                    RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
-                    Text("\(flashCardEntities[Int(column + row*Int16(FlashCardViewModel.columnCount))].text!)")
-               }
-           }
+                if (!flashCardEntity.isHidden) {
+                    GeometryReader {g in
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
+                            RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
+                            Text("\(flashCardEntities[Int(column + row*Int16(FlashCardViewModel.columnCount))].text!)")
+                                .padding(2)
+                                .font(.system(size: 12)) // Maximum font size to use
+                                        .minimumScaleFactor(0.01) // Minimum size to reduce to fit view
+//                                .scaledToFit()
+//                                .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.2: g.size.height * 0.2))
+//                            .font(Font.system(size: 9.0)).padding(2)
+                        }
+                    }.transition(.scale)
+                    //.transition(.scale(scale:3.0)).animation(.default)
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
+                        RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
+                    } .transition(.scale)
+                }
+            }
         }
     }
 }
