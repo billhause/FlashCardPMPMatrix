@@ -139,7 +139,7 @@ struct MatrixView: View {
                     if (colNumber == 0) && (rowNumber == 0) { // ORIGIN CELL
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor)
                             .onTapGesture(count:2) {
-                                print("Double Tap1")
+                                cardDoubleTapHandler(row: rowNumber, col: Int16(colNumber))
                             }
                             .onTapGesture(count:1) {
                                 cardTapHandler(row: rowNumber, col: Int16(colNumber))
@@ -149,7 +149,7 @@ struct MatrixView: View {
                     else if (colNumber == 0) && (rowNumber != 0) { // ROW HEADERS (First Column)
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: rowHeaderColor)
                             .onTapGesture(count:2) {
-                                print("Double Tap2")
+                                cardDoubleTapHandler(row: rowNumber, col: Int16(colNumber))
                             }
                             .onTapGesture(count:1) {
                                 cardTapHandler(row: rowNumber, col: Int16(colNumber))
@@ -159,7 +159,7 @@ struct MatrixView: View {
                     else if (colNumber != 0) && (rowNumber == 0) { // COLUMN HEADERS (First Row)
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: columnHeaderColor)
                             .onTapGesture(count:2) {
-                                print("Double Tap3")
+                                cardDoubleTapHandler(row: rowNumber, col: Int16(colNumber))
                             }
                             .onTapGesture(count:1) {
                                 cardTapHandler(row: rowNumber, col: Int16(colNumber))
@@ -169,7 +169,7 @@ struct MatrixView: View {
                     else if (colNumber != 0) && (rowNumber != 0) { // BODY CELLS
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: tableCellColor)
                             .onTapGesture(count:2) {
-                                print("Double Tap4")
+                                cardDoubleTapHandler(row: rowNumber, col: Int16(colNumber))
                             }
                             .onTapGesture(count:1) {
                                 cardTapHandler(row: rowNumber, col: Int16(colNumber))
@@ -179,9 +179,12 @@ struct MatrixView: View {
             }
         }
 //        .padding(2)
-        .font(Font.system(size: 10.0))
+//        .font(Font.system(size: 10.0))
     }
     
+    func cardDoubleTapHandler(row: Int16, col: Int16) {
+        print("Double Tapped! row: \(row), col: \(col)")
+    }
     
     func cardTapHandler(row: Int16, col: Int16) {
         print("Card Tapped! row: \(row), col: \(col)")
