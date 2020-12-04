@@ -180,7 +180,8 @@ struct MatrixView: View {
                 }
             }
         }
-        .popover(isPresented: $testViewShowing) {
+//        .popover(isPresented: $testViewShowing) {
+        .sheet(isPresented: $testViewShowing) {
            TestView(testViewShowing: $testViewShowing) // wdhx
         }
 //        .padding(2)
@@ -189,7 +190,7 @@ struct MatrixView: View {
     
     func cardDoubleTapHandler(row: Int16, col: Int16) {
         print("Double Tapped! row: \(row), col: \(col)")
-        gRow = row
+        gRow = row // TODO: Eliminate these globals (Maybe with @EnvironmentObjec?)
         gCol = col
         self.testViewShowing = true
 //        self.popover(isPresented: $testViewShowing) {
@@ -222,18 +223,22 @@ struct MatrixView: View {
 
 }
 
-var gRow: Int16 = 0
+var gRow: Int16 = 0 // TODO: Get rid of these globals
 var gCol: Int16 = 0
 struct TestView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @Binding var testViewShowing: Bool
-//    var row: Int16
- //   var col: Int16
     
     var body: some View {
-        Text("Just a test row: \(gRow), col: \(gCol)")
-        Button("Press Me Bye Bye") {
-            testViewShowing = false
+
+        VStack {
+            Text("Just a test row: \(gRow), col: \(gCol)")
+            Button("Press Me Bye Bye") {
+                testViewShowing = false
+            }
         }
+        
     }
 }
 
