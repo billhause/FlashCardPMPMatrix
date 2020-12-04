@@ -137,30 +137,43 @@ struct MatrixView: View {
                 Group { // COLOR Based on Row, Column
                     
                     if (colNumber == 0) && (rowNumber == 0) { // ORIGIN CELL
-                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor) .onTapGesture {
-                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
-                        }
-//                        .onTapGesture(2) {
-//                            print("Double Tap")
-//                        }
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor)
+                            .onTapGesture(count:2) {
+                                print("Double Tap1")
+                            }
+                            .onTapGesture(count:1) {
+                                cardTapHandler(row: rowNumber, col: Int16(colNumber))
+                            }
                     }
                     
                     else if (colNumber == 0) && (rowNumber != 0) { // ROW HEADERS (First Column)
-                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: rowHeaderColor) .onTapGesture {
-                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
-                        }
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: rowHeaderColor)
+                            .onTapGesture(count:2) {
+                                print("Double Tap2")
+                            }
+                            .onTapGesture(count:1) {
+                                cardTapHandler(row: rowNumber, col: Int16(colNumber))
+                            }
                     }
                     
                     else if (colNumber != 0) && (rowNumber == 0) { // COLUMN HEADERS (First Row)
-                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: columnHeaderColor) .onTapGesture {
-                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
-                        }
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: columnHeaderColor)
+                            .onTapGesture(count:2) {
+                                print("Double Tap3")
+                            }
+                            .onTapGesture(count:1) {
+                                cardTapHandler(row: rowNumber, col: Int16(colNumber))
+                            }
                     }
 
                     else if (colNumber != 0) && (rowNumber != 0) { // BODY CELLS
-                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: tableCellColor) .onTapGesture {
-                            cardTapHandler(row: rowNumber, col: Int16(colNumber))
-                        }
+                        CardView(row: rowNumber, column: Int16(colNumber), fillColor: tableCellColor)
+                            .onTapGesture(count:2) {
+                                print("Double Tap4")
+                            }
+                            .onTapGesture(count:1) {
+                                cardTapHandler(row: rowNumber, col: Int16(colNumber))
+                            }
                     }
                 }
             }
