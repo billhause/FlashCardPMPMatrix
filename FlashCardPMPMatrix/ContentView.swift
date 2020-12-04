@@ -113,17 +113,15 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        MatrixView()
+        MatrixView().padding(5)
     }
 }
-
-
 
 struct MatrixView: View {
    @Environment(\.managedObjectContext) private var viewContext
 
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             ForEach(0..<FlashCardViewModel.rowCount) { rowNumber in
                 // NOTE: Breaking this out into function call to avoid compiler error "The compiler is unable to
                 // type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions"
@@ -134,7 +132,7 @@ struct MatrixView: View {
 
     // Create row of cards for the specified row number
     func hStackRow(rowNumber: Int16) -> some View {
-        HStack {
+        HStack(spacing: 5) {
             ForEach(0..<FlashCardViewModel.columnCount) { colNumber in
                 Group { // COLOR Based on Row, Column
                     
@@ -213,10 +211,8 @@ struct CardView: View {
     // NOTE: This view relies on the FlashCardEntities being sorted by row
     // and column to update the correct cell
     var body: some View {
-
-    print("Hello Dude - CardView body")
         
-    return ForEach(flashCardEntities, id: \.self) { flashCardEntity in
+        ForEach(flashCardEntities, id: \.self) { flashCardEntity in
             if (flashCardEntity.row == row) && (flashCardEntity.column == column) {
                 if (!flashCardEntity.isHidden) {
                     ZStack {
