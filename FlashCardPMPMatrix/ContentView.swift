@@ -120,6 +120,8 @@ struct ContentView: View {
 struct MatrixView: View {
    @Environment(\.managedObjectContext) private var viewContext
 
+    @State var testViewShowing = false // wdhx
+    
     var body: some View {
         VStack(spacing: 5) {
             ForEach(0..<FlashCardViewModel.rowCount) { rowNumber in
@@ -178,12 +180,22 @@ struct MatrixView: View {
                 }
             }
         }
+        .popover(isPresented: $testViewShowing) {
+           TestView(testViewShowing: $testViewShowing) // wdhx
+        }
 //        .padding(2)
 //        .font(Font.system(size: 10.0))
     }
     
     func cardDoubleTapHandler(row: Int16, col: Int16) {
         print("Double Tapped! row: \(row), col: \(col)")
+        gRow = row
+        gCol = col
+        self.testViewShowing = true
+//        self.popover(isPresented: $testViewShowing) {
+//            TestView(row: row, col: col)
+ //       }
+ //       TestView(row: row, col: col)
     }
     
     func cardTapHandler(row: Int16, col: Int16) {
@@ -208,6 +220,21 @@ struct MatrixView: View {
     let originCellColor:   Color = Color.init(red: 1.0, green: 1.0, blue: 1.0)
     let tableCellColor:    Color = Color.init(red: 0.9, green: 0.9, blue: 0.9)
 
+}
+
+var gRow: Int16 = 0
+var gCol: Int16 = 0
+struct TestView: View {
+    @Binding var testViewShowing: Bool
+//    var row: Int16
+ //   var col: Int16
+    
+    var body: some View {
+        Text("Just a test row: \(gRow), col: \(gCol)")
+        Button("Press Me Bye Bye") {
+            testViewShowing = false
+        }
+    }
 }
 
 struct CardView: View {
