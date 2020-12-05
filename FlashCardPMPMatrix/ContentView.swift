@@ -136,8 +136,9 @@ struct MatrixView: View {
     func hStackRow(rowNumber: Int16) -> some View {
         HStack(spacing: 5) {
             ForEach(0..<FlashCardViewModel.columnCount) { colNumber in
-                Group { // COLOR Based on Row, Column
                     
+                Group { // COLOR Based on Row, Column
+              
                     if (colNumber == 0) && (rowNumber == 0) { // ORIGIN CELL
                         CardView(row: rowNumber, column: Int16(colNumber), fillColor: originCellColor)
                             .onTapGesture(count:2) {
@@ -238,7 +239,9 @@ struct TestView: View {
                 testViewShowing = false
             }
         }
-        
+        .onAppear() {
+            print("Test View .onAppear() called row: \(gRow), col: \(gCol)")
+        }
     }
 }
 
