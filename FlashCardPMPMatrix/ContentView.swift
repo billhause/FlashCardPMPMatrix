@@ -208,7 +208,7 @@ struct MatrixView: View {
         // Flip card
         flashCardEntity.isHidden = !flashCardEntity.isHidden
         
-        flashCardEntity.text = "☃️ \nrow: \(row), col: \(col) \nRow2\nrow3\nRow4\nrow5"
+//        flashCardEntity.text = "☃️ \nrow: \(row), col: \(col) \nRow2\nrow3\nRow4\nrow5"
 
 //        flashCardEntity.objectWillChange.send() // Cause Views to update Stanford Lesson 12 at 52:20
         
@@ -229,18 +229,32 @@ var gCol: Int16 = 0
 struct TestView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    
     @Binding var testViewShowing: Bool
+    @State private var flashCardText: String = "You Should Never See This Text wdh"
     
     var body: some View {
 
         VStack {
-            Text("Just a test row: \(gRow), col: \(gCol)")
-            Button("Press Me Bye Bye") {
+            
+            TextEditor(text: $flashCardText)
+                .border(Color.black, width: 1)
+//                .font(.custom("HelveticaNeue", size: 13))
+                .padding()
+            
+            Button("Done") {
                 testViewShowing = false
             }
         }
         .onAppear() {
-            print("Test View .onAppear() called row: \(gRow), col: \(gCol)")
+            print("Test View .onAppear() called row: \(gRow), col: \(gCol)\nflashCardText = \(flashCardText)")
+            flashCardText = FlashCardEntity.withRowColumn(row: gRow, column: gCol, context: viewContext).text ?? ""
+        
+        }
+        .onDisappear() {
+            print("Test View .onDisappear() called row: \(gRow), col: \(gCol)\nflashCardText = \(flashCardText)")
+            let theFlashCardEntity = FlashCardEntity.withRowColumn(row: gRow, column: gCol, context: PersistenceController.shared.container.viewContext)
+            theFlashCardEntity.text = String(flashCardText)
         }
     }
 }
