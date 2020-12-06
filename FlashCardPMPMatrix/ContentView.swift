@@ -183,7 +183,7 @@ struct MatrixView: View {
         }
 //        .popover(isPresented: $testViewShowing) {
         .sheet(isPresented: $testViewShowing) {
-           TestView(testViewShowing: $testViewShowing) // wdhx
+           FlashCardEditView(editViewIsShowing: $testViewShowing) // wdhx
         }
 //        .padding(2)
 //        .font(Font.system(size: 10.0))
@@ -226,11 +226,11 @@ struct MatrixView: View {
 
 var gRow: Int16 = 0 // TODO: Get rid of these globals
 var gCol: Int16 = 0
-struct TestView: View {
+struct FlashCardEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     
-    @Binding var testViewShowing: Bool
+    @Binding var editViewIsShowing: Bool
     @State private var flashCardText: String = "You Should Never See This Text wdh"
     
     var body: some View {
@@ -243,7 +243,7 @@ struct TestView: View {
                 .padding()
             
             Button("Done") {
-                testViewShowing = false
+                editViewIsShowing = false
             }
         }
         .onAppear() {
