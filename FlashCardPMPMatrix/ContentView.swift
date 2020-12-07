@@ -6,7 +6,7 @@
 //
 //  Memorize the 49 Processes in the 5 "Process Groups" and 9 "Knowledge Areas" in PMBOK 6th Edition
 //    https://www.examspm.com/2018/08/07/memorize-the-49-processes-pmbok-6th-edition/
-//    Key Words: PMP,Exam,PMI,PMBOK,Process,Groups,Group,Knowledge,Areas,Matrix,Project,Management,Study,Practice
+//    Key Words: PMP,Exam,PMI,PMBOK,Process,Groups,Group,Knowledge,Areas,Matrix,Project,Management,Study,Guide,Tools,Practice,6th,7th
 //
 // Tutorial to create this PizzaRestaurant Core Data Demo:
 //    https://blckbirds.com/post/core-data-and-swiftui/
@@ -259,6 +259,7 @@ struct FlashCardEditView: View {
             print("Test View .onDisappear() called row: \(gRow), col: \(gCol)\nflashCardText = \(flashCardText)")
             let theFlashCardEntity = FlashCardEntity.withRowColumn(row: gRow, column: gCol, context: PersistenceController.shared.container.viewContext)
             theFlashCardEntity.text = String(flashCardText)
+            try? PersistenceController.shared.container.viewContext.save()
         }
     }
 }

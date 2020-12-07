@@ -53,13 +53,27 @@ struct FlashCardPMPMatrixApp: App {
         print("wdh scenePhaseActive() Called, previous ScenePhase was \(previousScenePhase)")
         
         // Initialize the FlashCard Matrix
-        FlashCardViewModel.initializeTheMatrix(context: persistenceController.container.viewContext)
+        let viewContext = persistenceController.container.viewContext
+        FlashCardViewModel.initializeTheMatrix(context: viewContext)
         
-//        SKStoreReviewController.requestReview() // wdh - This is depricated as of iOS 14
-        if let windowScene = UIApplication.shared.windows.first?.windowScene {
-            SKStoreReviewController.requestReview(in: windowScene)
+        // REQUEST REVIEW
+        // Do at least 45 cells have text?
+        print("Count of flashcards with Text is \(FlashCardViewModel.cellsWithText)")
+        if FlashCardViewModel.cellsWithText >= Self.CELL_TEXT_THRESHOLD {
+            // If so, increment the run count
+            UserStatsEntity.getUserStatsEntity(context: viewContext).runsWithLoadedMatrix += 1
+            try? viewContext.save()
+
+            let practiceRunCount = UserStatsEntity.getUserStatsEntity(context: viewContext).runsWithLoadedMatrix
+            print("practiceRunCount = \(practiceRunCount)")
+            // Have there been at least 3 runs since 45 cells have had text
+            if practiceRunCount > Self.PRACTICE_RUN_THRESHOLD {
+                // If so, request the review
+                if let windowScene = UIApplication.shared.windows.first?.windowScene {
+                    SKStoreReviewController.requestReview(in: windowScene)
+                }
+            }
         }
-        
     }
     
     // wdh added
@@ -83,6 +97,10 @@ struct FlashCardPMPMatrixApp: App {
     func scenePhaseBackground(previousScenePhase: ScenePhase) {
         print("wdh scenePhaseBackground() Called, previous ScenePhase was \(previousScenePhase)")
     }
+    
+    // MARK: - Constants
+    private static let CELL_TEXT_THRESHOLD = 45   // 45 cards must have text in them
+    private static let PRACTICE_RUN_THRESHOLD = 3 // 3 runs needed after the matrix has been fleshed out before requesting review
     
 }
 

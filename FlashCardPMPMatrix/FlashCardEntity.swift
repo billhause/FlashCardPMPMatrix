@@ -39,7 +39,6 @@ extension FlashCardEntity: Comparable {
         // If we found one, return it.  IF the returned array is empty then we need to create one.
         if let flashCardEntity = flashCardEntities!.first {
             // if found, return it
-            print("Found Existing FlashCardEntity for row: \(row), column: \(column)")
             return flashCardEntity
         } else {
             // If no flashCardEntity was found, create one
@@ -51,8 +50,6 @@ extension FlashCardEntity: Comparable {
             flashCardEntity.id = UUID()
             
             flashCardEntity.objectWillChange.send() // Needed? Cause any views looking at this Entity to redraw themselves
-            
-            print("created FlashCardEntity for row: \(row), column: \(column)")
             
             // Save the created FlashCardEntity
             try? context.save() // Not handling the try/catch because there's nothing I would be able to do about it.
