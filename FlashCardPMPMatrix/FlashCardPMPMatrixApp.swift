@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 @main
 struct FlashCardPMPMatrixApp: App {
@@ -53,6 +54,11 @@ struct FlashCardPMPMatrixApp: App {
         
         // Initialize the FlashCard Matrix
         FlashCardViewModel.initializeTheMatrix(context: persistenceController.container.viewContext)
+        
+//        SKStoreReviewController.requestReview() // wdh - This is depricated as of iOS 14
+        if let windowScene = UIApplication.shared.windows.first?.windowScene {
+            SKStoreReviewController.requestReview(in: windowScene)
+        }
         
     }
     
