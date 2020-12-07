@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2890E8E1257D8FD7001C0D8E /* FlashCardPMPMatrix.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlashCardPMPMatrix.entitlements; sourceTree = "<group>"; };
 		28923B40256F04E000842161 /* FlashCardEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardEntity.swift; sourceTree = "<group>"; };
 		28923B43256F10DA00842161 /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
 		28E65835256AC08E009BAB66 /* FlashCardPMPMatrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCardPMPMatrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +61,7 @@
 		28E65837256AC08E009BAB66 /* FlashCardPMPMatrix */ = {
 			isa = PBXGroup;
 			children = (
+				2890E8E1257D8FD7001C0D8E /* FlashCardPMPMatrix.entitlements */,
 				28E65838256AC08F009BAB66 /* FlashCardPMPMatrixApp.swift */,
 				28E6583A256AC08F009BAB66 /* ContentView.swift */,
 				28E6583C256AC08F009BAB66 /* Assets.xcassets */,
@@ -283,6 +285,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FlashCardPMPMatrix/FlashCardPMPMatrix.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FlashCardPMPMatrix/Preview Content\"";
 				DEVELOPMENT_TEAM = XXF7Y2ZTA7;
@@ -295,6 +298,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.TinyPurpleGrapes.FlashCardPMPMatrix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -305,6 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FlashCardPMPMatrix/FlashCardPMPMatrix.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FlashCardPMPMatrix/Preview Content\"";
 				DEVELOPMENT_TEAM = XXF7Y2ZTA7;
@@ -317,6 +322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.TinyPurpleGrapes.FlashCardPMPMatrix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

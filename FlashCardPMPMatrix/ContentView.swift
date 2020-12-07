@@ -229,22 +229,26 @@ var gCol: Int16 = 0
 struct FlashCardEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    
     @Binding var editViewIsShowing: Bool
     @State private var flashCardText: String = "You Should Never See This Text wdh"
     
     var body: some View {
 
         VStack {
+            Spacer()
+            Text("Enter Flashcard Text Below").bold()
             
+//            TextField("Prompt Text wdh", text: $flashCardText)
             TextEditor(text: $flashCardText)
                 .border(Color.black, width: 1)
 //                .font(.custom("HelveticaNeue", size: 13))
-                .padding()
+                .padding(.leading)
+                .padding(.trailing)
             
             Button("Done") {
                 editViewIsShowing = false
             }
+            Spacer()
         }
         .onAppear() {
             print("Test View .onAppear() called row: \(gRow), col: \(gCol)\nflashCardText = \(flashCardText)")
