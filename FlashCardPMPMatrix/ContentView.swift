@@ -50,6 +50,7 @@
 // Screen Shots
 //   - 4 shots using iPhone "8 Plus" simulator
 //   - 4 shots using iPhone "11 Pro Max" simulator
+//   - 4 shots using iPad Pro (3rd Gen) 12.9" Display
 //
 // Game Center Leader Boards - Apple Docs  https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/GameKit_Guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008304
 //
@@ -290,7 +291,7 @@ struct CardView: View {
                         RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
                         Text("\(flashCardEntities[Int(column + row*Int16(FlashCardViewModel.columnCount))].text!)")
                             .padding(2)
-                            .font(.system(size: 12)) // Maximum font size to use
+                            .font(.system(size: 20)) // Maximum font size to use
                             .minimumScaleFactor(0.01) // Minimum size to reduce to fit view
                     }.transition(.scale)
 
