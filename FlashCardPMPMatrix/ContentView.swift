@@ -293,6 +293,7 @@ struct CardView: View {
                             .padding(2)
                             .font(.system(size: 20)) // Maximum font size to use
                             .minimumScaleFactor(0.01) // Minimum size to reduce to fit view
+                            .foregroundColor(Color.black)
                     }.transition(.scale)
 
                 } else {
@@ -300,6 +301,7 @@ struct CardView: View {
                         RoundedRectangle(cornerRadius: 5.0).fill(fillColor)
                         RoundedRectangle(cornerRadius: 5.0).stroke(lineWidth:1)
                         Text("?").font(.system(size:50)).minimumScaleFactor(0.01)
+                            .foregroundColor(Color.init(red: 0.2, green: 0.4, blue: 1.0))
                     } .transition(.scale)
                 }
             }
