@@ -34,6 +34,31 @@
 //  21 - Add "@FetchRequest" property and 'FetchedResults<Order>'  needed to load data
 //
 // =============
+//  Core Data Tutorial: https://www.youtube.com/watch?v=O7u9nYWjvKk
+//    - Create element, Load, Save and Delete ends at minute 49
+//    - Filtering and Sorting starting at minute 51
+//    - Relationships between Entities (Minute 59) - Eg. an entity that has an array of another entity
+//
+//  vvvv Excelent Core Data Stanford Lecture Tutorial vvvv
+//  Core Data Stanford Class Tutorial (June 2020) 1:33:00 - Explains how to use Core Data and that Core Data/
+//    is an object oriented database - June 22, 2020 - Uses 'FlightAware' to get flight data
+//    YouTube: https://www.youtube.com/watch?v=yOhyOpXvaec
+//      - Setup 6:00
+//      - 22:00 - Automatically generated code to set '.environment(\.managedObjectContect, context)
+//      - 24:00 - Entity Creation
+//      - 30:50 - Setting Entity Relationships
+//      - 42:00 - Loading (Fetching) Data with a predicate query string
+//      - 52:25 - Force refresh with '.objectWillChange.send()'
+//      - 54:00-59 - Create getters/seters for optional fields to avoid crashes
+//      - 1:33:00 - Adding @FetchRequest() at top of struct is heart of automatic updates E.g.
+//              @FetchRequest var flights: FetchResults<Flight>
+//      -
+//
+//
+//   CORE DATA PLAN -
+//      - Create method to Load requested Entity or create one and return it if the requested one doesn't already exist. (46:00 in Stanford lecture 12)
+//      - Use 'RoundedRectangle() view to hold each cell
+//
 //
 //  Localization Internationalization
 //    - video here to localize this app: https://www.youtube.com/watch?v=oXa4en79CHg
@@ -74,36 +99,6 @@
 //       a. Remove contents of viewDidLoad() except for the call to super.viewDidLoad()
 //       b. Add function: viewWillLayoutSubviews() - this is a better place to initialize the game scene because we don't know the screen size in viewDidLoad but do know it in viewWillLayoutSubviews
 //       c.
-//
-// Stanford Lecture 1: SwiftUI - Concentration Game
-//   - https://www.youtube.com/watch?v=jbtqIBpUG7g&t=3s
-//
-//
-//
-//  Core Data Tutorial: https://www.youtube.com/watch?v=O7u9nYWjvKk
-//    - Create element, Load, Save and Delete ends at minute 49
-//    - Filtering and Sorting starting at minute 51
-//    - Relationships between Entities (Minute 59) - Eg. an entity that has an array of another entity
-//
-//  vvvv Excelent Core Data Stanford Lecture Tutorial vvvv
-//  Core Data Stanford Class Tutorial (June 2020) 1:33:00 - Explains how to use Core Data and that Core Data/
-//    is an object oriented database - June 22, 2020 - Uses 'FlightAware' to get flight data
-//    YouTube: https://www.youtube.com/watch?v=yOhyOpXvaec
-//      - Setup 6:00
-//      - 22:00 - Automatically generated code to set '.environment(\.managedObjectContect, context)
-//      - 24:00 - Entity Creation
-//      - 30:50 - Setting Entity Relationships
-//      - 42:00 - Loading (Fetching) Data with a predicate query string
-//      - 52:25 - Force refresh with '.objectWillChange.send()'
-//      - 54:00-59 - Create getters/seters for optional fields to avoid crashes
-//      - 1:33:00 - Adding @FetchRequest() at top of struct is heart of automatic updates E.g.
-//              @FetchRequest var flights: FetchResults<Flight>
-//      -
-//
-//
-//   CORE DATA PLAN -
-//      - Create method to Load requested Entity or create one and return it if the requested one doesn't already exist. (46:00 in Stanford lecture 12)
-//      - Use 'RoundedRectangle() view to hold each cell
 //
 //
 //
